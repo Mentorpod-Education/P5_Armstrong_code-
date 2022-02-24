@@ -14,4 +14,4 @@ The server should run on `localhost` with default port `3000`. If the
 server runs on another port for any reason, this is printed to the
 console when the server starts, e.g. `Listening on port 3001`.
 
-https://donavan2175.github.io/P5_Armstrong_code-/
+Sample Project URL: https://mentorpod-education.github.io/P5_Armstrong_code-/
