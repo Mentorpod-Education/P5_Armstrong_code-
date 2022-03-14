@@ -9,9 +9,12 @@ function getCartProducts() {
 
         let productImage = document.createElement("div");
         article.appendChild(productImage);
+        productImage.className = "cart__item__image";
 
         let image = document.createElement("img");
-        productImage.appendChild(image);
+        productImage.appendChild(image);  
+        image.src = productLocalStorage[product].image;
+        image.alt = productLocalStorage[product].imagealt;
 
         let productName = document.createElement("div");
         let name = document.createElement("h2");
