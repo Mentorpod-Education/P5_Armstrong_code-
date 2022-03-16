@@ -14,12 +14,12 @@ getArticle();
 // Retrieve the articles from the API
 
 function getArticle() {
-   const displaySingleProduct = fetch('http://localhost:3000/api/products/' + idProduct)
+   fetch('http://localhost:3000/api/products/' + idProduct)
   .then ((res) => {
       return res.json ();
   })
 
-  displaySingleProduct.then(async function(products) {
+  .then(async function(products) {
       article = await products;     
 
       if (article) {
@@ -27,12 +27,7 @@ function getArticle() {
     }
 
 }).catch((error) => {                 
-    document.getElementById('items').innerHTML = `
-        <div>
-            <h2>Sorry, an error occured...(${error})</h2>
-            <p>Please refresh your page or come back later while we fix the problem.</p>
-        </div>`;
-    console.log('Error: Fetch request failed!');
+    console.log('there has been an error in your request');
   
   });  
 }
@@ -44,34 +39,36 @@ function getArticle() {
 
 function getPost(article){
     // Image insertion
-    let image = document.createElement("img");
-    document.querySelector('.item__img').appendChild(image);
-    image.src = article.imgUrl;
+    let productImage = document.createElement("img");
+    document.querySelector('.item__img').appendChild(productImage);
+    productImage.src = article.imageUrl;
+    productImage.alt = article.altTxt;
 
     // Modification of the title "h1
-    let title = document.getElementById('title');
-    title.innerHTML = article.title;
+    let ProductTitle = document.getElementById('title');
+    ProductTitle.innerHTML = article.name;
 
     // Modification of the price
-    let price = document.getElementById('price');
-    price.innerHTML = article.price;
+    let productPrice = document.getElementById('price');
+    productPrice.innerHTML = article.price;
 
     // Modification of the description
-    let description = document.getElementById('description');
-    description.innerHTML = article.description;
+    let ProductDescription = document.getElementById('description');
+    ProductDescription.innerHTML = article.description;
 
     // Insertion of color options
 
     for (let colors of article.colors) {
-        let colorChoices = document.createElement("option");
-        document.querySelector("#colors").append(colorChoices);
-        colorChoices.value = colors;
-        colorChoices.innerHTML = colors;
+        let colorOptions = document.createElement("option");
+        document.querySelector("#colors").append(colorOptions);
+        colorOptions.value = colors;
+        colorOptions.innerHTML = colors;
     }
 
     addToCart(article);
 
 }
+
 
         function addToCart(article) {
             const basket = document.querySelector("#addToCart");
@@ -87,6 +84,7 @@ function getPost(article){
                     let retrieveOptions = {
                         idProduct: idProduct,
                         image: article.imageUrl,
+                        altProduct: article.altTxt,
                         name: article.title,
                         price: article.price,
                         description: article.description,

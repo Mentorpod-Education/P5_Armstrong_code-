@@ -1,3 +1,4 @@
+
 async function display() {
   const displayAllProducts = await fetch('http://localhost:3000/api/products');
   return await displayAllProducts.json();
@@ -12,33 +13,31 @@ async function getAllProducts() {
             document.querySelector(".items").appendChild(productLink);
             productLink.href = `product.html?id=${products[i]._id}`;
 
-            let article = document.createElement("article");
-            productLink.appendChild(article);
+            let productArticle = document.createElement("article");
+            productLink.appendChild(productArticle);
 
-            let image = document.createElement("image")
-            article.appendChild(image);
-            image.src = products[i].imageUrl;
-            image.alt = products[i].altTxt;
+            let productImage = document.createElement("img")
+            productArticle.appendChild(productImage);
+            productImage.src = products[i].imageUrl;
+            productImage.alt = products[i].altTxt;
 
-            let title = document.createElement("h2");
-            article.appendChild(title);
-            title.classList.add("title");
-            title.innerHTML = products[i].name;
+            let productTitle = document.createElement("h2");
+            productArticle.appendChild(productTitle);
+            productTitle.classList.add("title");
+            productTitle.innerHTML = products[i].name;
 
             let productDescription = document.createElement("p");
-            article.appendChild(productDescription);
+            productArticle.appendChild(productDescription);
             productDescription.classList.add("name");
             productDescription.innerHTML = products[i].description;
     }
-  }).catch(function(error) {                     // if "REJECT" clears the content of main container and displays information for user
-  
-
+  }).catch(function (error) {                 
     return error;
-
-  });   
-}   
+  
+  });  
+} 
 getAllProducts();
-console.log(getAllProducts());
+
 
 
 
