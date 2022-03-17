@@ -2,7 +2,6 @@ const str = window.location.href;
 const url = new URL(str);
 const idProduct = url.searchParams.get("id");
 
-// We spoke about querySelector last week (see below; lines; 6-10)
 console.log(idProduct);
 let article = "";
 
@@ -75,7 +74,7 @@ function getPost(article){
             let colorChoice = colorPicked.value;
             let quantityChoice = quantityPicked.value;
         
-            //Ecouter le panier avec 2 conditions couleur non nulle et quantité entre 1 et 100
+         
             basket.addEventListener("click", (event) => { 
                 if (quantityChoice.value > 0 && quantityChoice.value < 100) {
         
@@ -92,7 +91,7 @@ function getPost(article){
                         quantityOption: quantityChoice,
                     }
                 
-            //Initialisation du local storage
+           
             let productLocalStorage = JSON.parse(localStorage.getItem("product"));
         
             //window pop-up
@@ -131,6 +130,8 @@ function getPost(article){
             }}
             });
         }
+
+        console.log(addToCart(article));
         
     
     

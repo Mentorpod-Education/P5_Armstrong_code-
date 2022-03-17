@@ -1,6 +1,7 @@
 let productLocalStorage = JSON.parse(localStorage.getItem("product"));
 
 
+
 // get products from local storage
 function getCartProducts() {
     for (let product in productLocalStorage) {
