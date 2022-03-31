@@ -15,7 +15,7 @@ getArticle();
 function getArticle() {
    fetch('http://localhost:3000/api/products/' + idProduct)
   .then ((res) => {
-      return res.json ();
+      return res.json();
   })
 
   .then(async function(products) {
@@ -28,13 +28,10 @@ function getArticle() {
 }).catch((error) => {                 
     console.log('there has been an error in your request');
   
-  });  
+  }) 
 }
 
-//STEPS REQUIRED
 // Breakdown of the API data in the DOM
-
-
 
 function getPost(article){
     // Image insertion
@@ -58,10 +55,10 @@ function getPost(article){
     // Insertion of color options
 
     for (let colors of article.colors) {
-        let colorOptions = document.createElement("option");
-        document.querySelector("#colors").append(colorOptions);
-        colorOptions.value = colors;
-        colorOptions.innerHTML = colors;
+        let productColors = document.createElement("option");
+        colorPicked.appendChild(productColors);
+        productColors.value = colors;
+        productColors.innerHTML = colors;
     }
 
     addToCart(article);
@@ -71,8 +68,8 @@ function getPost(article){
 
         function addToCart(article) {
             const basket = document.querySelector("#addToCart");
-            let colorChoice = colorPicked.value;
-            let quantityChoice = quantityPicked.value;
+            const colorChoice = colorPicked.value;
+            const quantityChoice = quantityPicked.value;
         
          
             basket.addEventListener("click", (event) => { 
@@ -84,7 +81,7 @@ function getPost(article){
                         idProduct: idProduct,
                         image: article.imageUrl,
                         altProduct: article.altTxt,
-                        name: article.title,
+                        name: article.name,
                         price: article.price,
                         description: article.description,
                         colorOption: colorChoice,
@@ -92,46 +89,48 @@ function getPost(article){
                     }
                 
            
-            let productLocalStorage = JSON.parse(localStorage.getItem("product"));
-        
-            //window pop-up
-            const popUpConfirmation =() =>{
-                if (window.confirm (`Your order of ${quantityChoice}  ${article.name}  ${colorChoice} is added to the cart
-        To view your cart, click OK`)) {
-                    window.location.href ="cart.html";
+                let productLocalStorage = JSON.parse(localStorage.getItem("product"));
+            
+                //window pop-up
+                const popUpConfirmation = () => {
+                    if (window.confirm (`Your order of ${quantityChoice}  ${article.name}  ${colorChoice} is added to the cart
+            To view your cart, click OK`)) {
+                        window.location.href ="cart.html";
+                    }
                 }
-            }
-                
-            //Import into local storage
-            //If the basket already contains at least 1 item
-            if (productLocalStorage) {
-                const resultFind = productLocalStorage.find(
-                    (el) => el.idProduct === idProduct && el.colorOption === colorChoice);
-                 //If the ordered product is already in the basket
-            if (resultFind) {
-                let newQuantity = parseInt(retrieveOptions.quantityOption) + parseInt(resultFind.quantityOption);
-                resultFind.quantityOption = newQuantity;
-                localStorage.setItem("product", JSON.stringify(productLocalStorage));
-                popUpConfirmation();
-
                     
-            //If the ordered product is not in the basket
+                //Import into local storage
+                if (productLocalStorage) {
+                    const resultFind = productLocalStorage.find(
+                        (el) => el.idProduct === idProduct && el.colorOption === colorChoice);
+                    //If the ordered product is already in the basket
+                if (resultFind) {
+                    let newQuantity = parseInt(retrieveOptions.quantityOption) + parseInt(resultFind.quantityOption);
+                    resultFind.quantityOption = newQuantity;
+                    localStorage.setItem("product", JSON.stringify(productLocalStorage));
+                    popUpConfirmation();
+
+                        
+                //If the ordered product is not in the basket
+                } else {
+                    productLocalStorage.push(retrieveOptions);
+                    localStorage.setItem("product", JSON.stringify(productLocalStorage));
+                    popUpConfirmation();
+                }
+                //If the basket is empty
             } else {
+                productLocalStorage = [];
                 productLocalStorage.push(retrieveOptions);
                 localStorage.setItem("product", JSON.stringify(productLocalStorage));
                 popUpConfirmation();
-            }
-            //If the basket is empty
-        } else {
-            productLocalStorage =[];
-            productLocalStorage.push(retrieveOptions);
-            localStorage.setItem("product", JSON.stringify(productLocalStorage));
-            popUpConfirmation();
             }}
-            });
+          });
         }
 
-        console.log(addToCart(article));
+
+    
+
+
         
     
     
