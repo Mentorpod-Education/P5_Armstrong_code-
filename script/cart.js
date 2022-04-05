@@ -92,8 +92,8 @@ function totalPriceAndQuantities() {
         price += (quantity[i].number * productLocalStorage[i].number);
     }
 
-    let totalPrice  = document.getElementById('totalPrice')
-    totalPrice.innerHTML = totalPrice;
+    let finalPrice  = document.getElementById('totalPrice')
+    finalPrice.innerHTML = price;
 }
 totalPriceAndQuantities();
 
@@ -119,3 +119,4 @@ function removeProducts() {
     }
 }
 removeProducts();
+console.log(productLocalStorage);
