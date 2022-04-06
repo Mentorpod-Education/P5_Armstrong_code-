@@ -18,7 +18,7 @@ function getArticle() {
       return res.json();
   })
 
-  .then(async function(products) {
+  .then(async function (products) {
       article = await products;     
 
       if (article) {
@@ -33,14 +33,14 @@ function getArticle() {
 
 // Breakdown of the API data in the DOM
 
-function getPost(article){
+function getPost(article) {
     // Image insertion
     let productImage = document.createElement("img");
     document.querySelector('.item__img').appendChild(productImage);
     productImage.src = article.imageUrl;
     productImage.alt = article.altTxt;
 
-    // Modification of the title "h1
+    // Modification of the title 
     let ProductTitle = document.getElementById('title');
     ProductTitle.innerHTML = article.name;
 
