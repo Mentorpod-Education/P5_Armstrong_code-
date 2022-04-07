@@ -1,16 +1,13 @@
 const str = window.location.href;
 const url = new URL(str);
 const idProduct = url.searchParams.get("id");
+const color = document.querySelector("#colors");
+const quantity = document.querySelector("#quantity");
 
-console.log(idProduct);
-let article = "";
+let element = "";
 
-const colorPicked = document.querySelector("#colors");
-const quantityPicked = document.querySelector("#quantity");
 
-getArticle();
-
-// Retrieve the articles from the API
+// grabbing information from api 
 
 function getArticle() {
    fetch('http://localhost:3000/api/products/' + idProduct)
@@ -19,54 +16,54 @@ function getArticle() {
   })
 
   .then(async function (products) {
-      article = await products;     
+      element = await products;     
 
-      if (article) {
-        getPost(article);
+      if (element) {
+        getPost(element);
     }
 
-}).catch((error) => {                 
-    console.log('there has been an error in your request');
-  
+}).catch(error => {                 
+    return error;
   }) 
 }
+getArticle();
 
-// Breakdown of the API data in the DOM
+// inserting data from the api into the dom
 
-function getPost(article) {
-    // Image insertion
-    let productImage = document.createElement("img");
-    document.querySelector('.item__img').appendChild(productImage);
-    productImage.src = article.imageUrl;
-    productImage.alt = article.altTxt;
+function getPost(element) {
+    // image
+    let dataImage = document.createElement("img");
+    document.querySelector('.item__img').appendChild(dataImage);
+    dataImage.src = element.imageUrl;
+    dataImage.alt = element.altTxt;
 
-    // Modification of the title 
-    let ProductTitle = document.getElementById('title');
-    ProductTitle.innerHTML = article.name;
+    // title
+    let dataTitle = document.getElementById('title');
+    dataTitle.innerHTML = element.name;
 
-    // Modification of the price
-    let productPrice = document.getElementById('price');
-    productPrice.innerHTML = article.price;
+    // price
+    let dataPrice = document.getElementById('price');
+    dataPrice.innerHTML = element.price;
 
-    // Modification of the description
-    let ProductDescription = document.getElementById('description');
-    ProductDescription.innerHTML = article.description;
+    // description
+    let dataDescription = document.getElementById('description');
+    dataDescription.innerHTML = element.description;
 
-    // Insertion of color options
+    // colors
 
-    for (let colors of article.colors) {
-        let productColors = document.createElement("option");
-        colorPicked.appendChild(productColors);
-        productColors.value = colors;
-        productColors.innerHTML = colors;
+    for (let colors of element.colors) {
+        let dataColors = document.createElement("option");
+        color.appendChild(dataColors);
+        dataColors.value = colors;
+        dataColors.innerHTML = colors;
     }
 
-    addToCart(article);
+    addToCart(element);
 
 }
 
 
-        function addToCart(article) {
+        function addToCart(element) {
             const basket = document.querySelector("#addToCart");
             const colorChoice = colorPicked.value;
             const quantityChoice = quantityPicked.value;
