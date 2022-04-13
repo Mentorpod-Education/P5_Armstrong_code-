@@ -58,8 +58,6 @@ function getPost(element) {
         dataColors.innerHTML = colors;
     }
 
-    addToCart(element);
-
 }
 
         // adding products to the cart
@@ -70,15 +68,15 @@ function getPost(element) {
         
          
             basket.addEventListener("click", (event) => { 
-                if (quantityChoice.value > 0 && quantityChoice.value < 100) {
+                if (quantityChoice.value > 0 && quantityChoice.value <= 100) {
         
                     let retrieveOptions = {
-                        idProduct: idProduct,
-                        image: article.imageUrl,
-                        altProduct: article.altTxt,
-                        name: article.name,
-                        price: article.price,
-                        description: article.description,
+                        productId: idProduct,
+                        image: element.imageUrl,
+                        altProduct: element.altTxt,
+                        name: element.name,
+                        price: element.price,
+                        description: element.description,
                         colorOption: colorChoice,
                         quantityOption: quantityChoice,
                     }
@@ -96,7 +94,7 @@ function getPost(element) {
                 //Import elements into local storage
                 if (productLocalStorage) {
                     const resultFind = productLocalStorage.find(
-                        (el) => el.idProduct === idProduct && el.colorOption === colorChoice);
+                        (el) => el.productId === idProduct && el.colorOption === colorChoice);
                  
                 if (resultFind) {
                     let newQuantity = parseInt(retrieveOptions.quantityOption) + parseInt(resultFind.quantityOption);
@@ -118,6 +116,12 @@ function getPost(element) {
                 }}
           });
         }
+
+        addToCart(element);
+        console.log(addToCart(element));
+        
+
+      
 
 
     

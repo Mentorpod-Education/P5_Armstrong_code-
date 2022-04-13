@@ -1,11 +1,11 @@
 let productLocalStorage = JSON.parse(localStorage.getItem("product"));
-console.log(productLocalStorage);
-const emptyCart = document.querySelector("#cart__items");
 
 
 
 // get products from local storage
 function getCartProducts() {
+    let emptyCart = document.querySelector("#cart__items");
+
     if (productLocalStorage === null || productLocalStorage == 0) {
         const empty = '<p>your cart is empty</p>';
         emptyCart.innerHTML = empty;
@@ -61,25 +61,11 @@ function getCartProducts() {
         contentSettings.appendChild(quantitySettings);
         quantitySettings.className = "cart__item__content__settings__quantity";
 
-
         let productQuantity = document.createElement("input");
         quantitySettings.appendChild(productQuantity);
         productQuantity.value = productLocalStorage[product].quantityOption;
         productQuantity.className = "itemQuantity";
-        productQuantity.setAttribute("type", "number");
-        productQuantity.setAttribute("min", "1");
-        productQuantity.setAttribute("max", "100");
-        productQuantity.setAttribute("name", "itemQuantity");
     }
-    //delete
-    let deleteDiv = document.createElement('div');
-    contentSettings.appendChild(deleteDiv);
-    deleteDiv.className = 'cart__item__content__settings__delete';
-
-    let productDelete = document.createElement("p");
-    deleteDiv.appendChild(productDelete);
-    productDelete.className = "deleteItem";
-    productDelete.innerHTML = "delete";
 }}
 getCartProducts();
 
