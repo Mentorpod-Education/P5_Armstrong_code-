@@ -60,100 +60,102 @@ function getPost(element) {
 
 }
 
-        // adding products to the cart
-        function addToCart(element) {
-            const basket = document.querySelectorAll("#addToCart");
-            const colorChoice = color.value;
-            const quantityChoice = quantity.value;
+// adding products to the cart
+function addToCart(element) {
+    const basket = document.querySelectorAll("#addToCart");
+    const colorChoice = color.value;
+    const quantityChoice = quantity.value;
 
-            let retrieveOptions = {
-                productId: idProduct,
-                image: element.imageUrl,
-                altProduct: element.altTxt,
-                name: element.name,
-                price: element.price,
-                description: element.description,
-                colorOption: colorChoice,
-                quantityOption: quantityChoice,
-            }
-        
-        
-            for (let i = 0; i < basket.length; i++) {
-                basket[i].addEventListener("click", () => { 
-                    basketNumbers()
-                    if (quantityChoice.value > 0 && quantityChoice.value <= 100) {
-                
-                        const popUpConfirmation = () => {
-                            if (window.confirm (`Your order of ${quantityChoice}  ${element.name}  ${colorChoice} is added to the cart
-                        To view your cart, click OK`)) {
-                                window.location.href ="cart.html";
-                            }
-                        }
-                        
-                    //Import elements into local storage
-                    if (productLocalStorage) {
-                        const resultFind = productLocalStorage.find(
-                            (el) => el.productId === idProduct && el.colorOption === colorChoice);
-                    
-                    if (resultFind) {
-                        let newQuantity = parseInt(retrieveOptions.quantityOption) + parseInt(resultFind.quantityOption);
-                        resultFind.quantityOption = newQuantity;
-                        localStorage.setItem("product", JSON.stringify(productLocalStorage));
-                        popUpConfirmation();
+    let retrieveOptions = {
+        productId: idProduct,
+        image: element.imageUrl,
+        altProduct: element.altTxt,
+        name: element.name,
+        price: element.price,
+        description: element.description,
+        colorOption: colorChoice,
+        quantityOption: quantityChoice,
+    }
 
-                    } else {
-                        productLocalStorage.push(retrieveOptions);
-                        localStorage.setItem("product", JSON.stringify(productLocalStorage));
-                        popUpConfirmation();
+
+    for (let i = 0; i < basket.length; i++) {
+        basket[i].addEventListener("click", () => { 
+            basketNumbers(retrieveOptions[i])
+            if (quantityChoice.value > 0 && quantityChoice.value <= 100) {
+        
+               /* const popUpConfirmation = () => {
+                    if (window.confirm (`Your order of ${quantityChoice}  ${element.name}  ${colorChoice} is added to the cart
+                To view your cart, click OK`)) {
+                        window.location.href ="cart.html";
                     }
-
-                    } else {
-                        productLocalStorage = [];
-                        productLocalStorage.push(retrieveOptions);
-                        localStorage.setItem("product", JSON.stringify(productLocalStorage));
-                        popUpConfirmation();
-                    }}
-                });
-            }
-
+                }
+                
+            //Import elements into local storage
+            if (productLocalStorage) {
+                const resultFind = productLocalStorage.find(
+                    (el) => el.productId === idProduct && el.colorOption === colorChoice);
             
+            if (resultFind) {
+                let newQuantity = parseInt(retrieveOptions.quantityOption) + parseInt(resultFind.quantityOption);
+                resultFind.quantityOption = newQuantity;
+                localStorage.setItem("product", JSON.stringify(productLocalStorage));
+                popUpConfirmation();
 
-        }
-
-        function addCartNumbers() {
-            let numbers = localStorage.getItem('basketNumbers');
-            if (numbers) {
-                document.querySelector('.cart span').textContent = numbers;
-            }
-        }
-
-        function basketNumbers() {
-            let numbers = localStorage.getItem('basketNumbers');
-            numbers = parseInt(numbers);
-
-            if (numbers) {
-                localStorage.setItem("basketNumbers", numbers + 1);
             } else {
-                localStorage.setItem("basketNumbers", 1);
+                productLocalStorage.push(retrieveOptions);
+                localStorage.setItem("product", JSON.stringify(productLocalStorage));
+                popUpConfirmation();
             }
-        }
 
-        addCartNumbers()
-        
-
-        addToCart(element);
-        console.log(addToCart(element));
-        
-
-      
-
+            } else {
+                productLocalStorage = [];
+                productLocalStorage.push(retrieveOptions);
+                localStorage.setItem("product", JSON.stringify(productLocalStorage));
+                popUpConfirmation();
+            }*/}
+        });
+    }
 
     
 
+}
 
-        
-    
-    
+function addCartNumbers() {
+    let numbers = localStorage.getItem('basketNumbers');
+    if (numbers) {
+        document.querySelector('.cart span').textContent = numbers;
+    }
+}
+
+function basketNumbers(retrieveOptions) {
+    console.log("it is", retrieveOptions);
+    let numbers = localStorage.getItem('basketNumbers');
+    numbers = parseInt(numbers);
+
+    if (numbers) {
+        localStorage.setItem("basketNumbers", numbers + 1);
+        document.querySelector('.cart span').textContent = numbers + 1;
+    } else {
+        localStorage.setItem("basketNumbers", 1);
+        document.querySelector('.cart span').textContent = 1;
+    }
+}
+addToCart(element);
+addCartNumbers();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     
 
