@@ -57,6 +57,7 @@ function getPost(element) {
         dataColors.value = colors;
         dataColors.innerHTML = colors;
     }
+    addToCart(element)
 
 }
 
@@ -75,48 +76,14 @@ function addToCart(element) {
         description: element.description,
         colorOption: colorChoice,
         quantityOption: quantityChoice,
-    }
+    };
 
 
     for (let i = 0; i < basket.length; i++) {
         basket[i].addEventListener("click", () => { 
-            basketNumbers(retrieveOptions[i])
-            if (quantityChoice.value > 0 && quantityChoice.value <= 100) {
-        
-               /* const popUpConfirmation = () => {
-                    if (window.confirm (`Your order of ${quantityChoice}  ${element.name}  ${colorChoice} is added to the cart
-                To view your cart, click OK`)) {
-                        window.location.href ="cart.html";
-                    }
-                }
-                
-            //Import elements into local storage
-            if (productLocalStorage) {
-                const resultFind = productLocalStorage.find(
-                    (el) => el.productId === idProduct && el.colorOption === colorChoice);
-            
-            if (resultFind) {
-                let newQuantity = parseInt(retrieveOptions.quantityOption) + parseInt(resultFind.quantityOption);
-                resultFind.quantityOption = newQuantity;
-                localStorage.setItem("product", JSON.stringify(productLocalStorage));
-                popUpConfirmation();
-
-            } else {
-                productLocalStorage.push(retrieveOptions);
-                localStorage.setItem("product", JSON.stringify(productLocalStorage));
-                popUpConfirmation();
-            }
-
-            } else {
-                productLocalStorage = [];
-                productLocalStorage.push(retrieveOptions);
-                localStorage.setItem("product", JSON.stringify(productLocalStorage));
-                popUpConfirmation();
-            }*/}
+            basketNumbers(retrieveOptions)
         });
     }
-
-    
 
 }
 
@@ -128,7 +95,6 @@ function addCartNumbers() {
 }
 
 function basketNumbers(retrieveOptions) {
-    console.log("it is", retrieveOptions);
     let numbers = localStorage.getItem('basketNumbers');
     numbers = parseInt(numbers);
 
@@ -140,7 +106,8 @@ function basketNumbers(retrieveOptions) {
         document.querySelector('.cart span').textContent = 1;
     }
 }
-addToCart(element);
+
+
 addCartNumbers();
 
 
