@@ -81,7 +81,8 @@ function addToCart(element) {
 
     for (let i = 0; i < basket.length; i++) {
         basket[i].addEventListener("click", () => { 
-            basketNumbers(retrieveOptions)
+            basketNumbers(retrieveOptions);
+            totalPrice(retrieveOptions);
         });
     }
 
@@ -112,14 +113,24 @@ function basketNumbers(retrieveOptions) {
 function setItems(retrieveOptions) {
     let items = localStorage.getItem("cartOptions");
     items = JSON.parse(items);
-    retrieveOptions.inCart = 1;
-    items = {
-        [retrieveOptions.name]: retrieveOptions
+
+    if (items != null) {
+        console.log(items);
+        items.incart += 1
+    } else {
+        retrieveOptions.inCart = 1;
+        items = {
+            [retrieveOptions.name]: retrieveOptions
+        }
     }
     localStorage.setItem("cartOptions", JSON.stringify(items));
 
 }
 
+function totalPrice(retrieveOptions) {
+    console.log("the price is", retrieveOptions.price);
+    localStorage.setItem("totalPrice", retrieveOptions.price)
+}
 
 addCartNumbers();
 
