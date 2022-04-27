@@ -105,6 +105,19 @@ function basketNumbers(retrieveOptions) {
         localStorage.setItem("basketNumbers", 1);
         document.querySelector('.cart span').textContent = 1;
     }
+
+    setItems(retrieveOptions)
+}
+
+function setItems(retrieveOptions) {
+    let items = localStorage.getItem("cartOptions");
+    items = JSON.parse(items);
+    retrieveOptions.inCart = 1;
+    items = {
+        [retrieveOptions.name]: retrieveOptions
+    }
+    localStorage.setItem("cartOptions", JSON.stringify(items));
+
 }
 
 
