@@ -81,7 +81,7 @@ function addToCart(element) {
 
 
     for (let i = 0; i < basket.length; i++) {
-        basket[i].addEventListener("click", () => { 
+        basket.addEventListener("click", () => { 
             basketNumbers(retrieveOptions);
             totalPrice(retrieveOptions);
         });
@@ -96,11 +96,17 @@ function addCartNumbers() {
     }
 }
 
-function basketNumbers(retrieveOptions) {
+function basketNumbers(retrieveOptions, action) {
     let numbers = localStorage.getItem('basketNumbers');
     numbers = parseInt(numbers);
 
-    if (numbers) {
+    let items = localStorage.getItem("cartOptions");
+    items = JSON.parse(items);
+
+    if (action) {
+        localStorage.setItem("basketNumbers", numbers - 1);
+        document.querySelector('.cart span').textContent = numbers - 1;
+    } else if (numbers) {
         localStorage.setItem("basketNumbers", numbers + 1);
         document.querySelector('.cart span').textContent = numbers + 1;
     } else {
@@ -118,7 +124,7 @@ function setItems(retrieveOptions) {
     if (items != null) {
         items.incart += 1
     } else {
-        retrieveOptions.inCart = 1;
+        retrieveOptions.incart = 1;
         items = {
             [retrieveOptions.name]: retrieveOptions
         }
@@ -127,11 +133,14 @@ function setItems(retrieveOptions) {
 
 }
 
-function totalPrice(retrieveOptions) {
+function totalPrice(retrieveOptions, action) {
     let totalCost = localStorage.getItem("totalPrice");
-    totalCost = parseInt(totalCost);
 
-    if (totalCost != null) {
+    if (action) {
+        totalCost = parseInt(totalCost);
+        localStorage.setItem("totalPrice", totalCost - retrieveOptions.price);
+    } else if (totalCost != null) {
+        totalCost = parseInt(totalCost);
         localStorage.setItem("totalPrice", totalCost + retrieveOptions.price)
     } else {
         localStorage.setItem("totalPrice", retrieveOptions.price)
@@ -139,9 +148,75 @@ function totalPrice(retrieveOptions) {
     
 }
 
+function displayCart() {
+    let showCart = localStorage.getItem("cartOptions");
+    showCart = JSON.parse(showCart);
 
+    let totalCost = localStorage.getItem("totalPrice");
+    totalCost = parseInt(totalCost);
+    let cartItems = document.querySelector("#cart__items");
+    
 
+    if (showCart && cartItems) {
+        cartItems.innerHTML = '';
+        Object.values(showCart).map( (item, index) => {
+            cartItems.innerHTML += `
+            <div class="product">
+                <ion-icon name="close-circle"></ion-icon>
+                <img>${item.image}</img>
+                <span>${item.name}</span>
+            </div>
+            </div class="price">${item.price}</div>
+            </div class="quantity"> 
+            <span>${item.incart}</span>
+            </div>
+            <div class="total">
+                ${item.incart * item.price}
+            </div>
+            `
+        });
+
+        cartItems.innerHTML += `
+            <div class="container">
+                <h4 class="totalContainer">
+                    Total
+                </h4>
+                <h4 class="finalContainer">
+                    ${totalCost}
+                </h4>
+            </div>
+        `
+        deleteButton();
+    }
+}
+
+function deleteButton() {
+    let deleteButton = document.querySelectorAll('.product ion-icon');
+    let productNumbers = localStorage.getItem('addCartNumbers');
+    let cartCost = localStorage.getItem("totalPrice");
+    let cartItems = localStorage.getItem('cartOptions');
+    cartItems = JSON.parse(cartItems);
+    let productName;
+
+    for (let i = 0; i < deleteButton.length; i++) {
+        deleteButton[i].addEventListener('click', () => {
+            productName = deleteButton[i].parentElement.textContent.toLocaleLowerCase().replace(/ /g,'').trim();
+           
+            localStorage.setItem('addCartNumbers', productNumbers - cartItems[productName].incart);
+            localStorage.setItem('totalPrice', cartCost - ( cartItems[productName].price * cartItems[productName].incart));
+
+            delete cartItems[productName];
+            localStorage.setItem('cartOptions', JSON.stringify(cartItems));
+
+            displayCart();
+            addCartNumbers();
+        })
+    }
+}
+
+displayCart();
 addCartNumbers();
+
 
 
 
