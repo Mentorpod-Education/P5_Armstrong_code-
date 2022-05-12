@@ -1,8 +1,11 @@
+
 const str = window.location.href;
 const url = new URL(str);
 const idProduct = url.searchParams.get("id");
 const color = document.querySelector("#colors");
 const quantity = document.querySelector("#quantity");
+
+
 
 let element = "";
 
@@ -180,33 +183,36 @@ function displayCart() {
 
     if (items && cartItems) {
         cartItems.innerHTML = '';
-        Object.values(items).map( (item, index) => {
+        Object.values(items).map( (item) => {
             cartItems.innerHTML += `
-            <div class="product">
-                <ion-icon name="close-circle"></ion-icon>
-                <img>${item.image}</img>
-                <span>${item.name}</span>
+            <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
+            <ion-icon name="close-circle"></ion-icon>
+            <div class="cart__item__img">
+              <img${item.image}>
             </div>
-            </div class="price">${item.price}</div>
-            </div class="quantity"> 
-            <span>${item.incart}</span>
+            <div class="cart__item__content">
+              <div class="cart__item__content__description">
+                <h2>${item.name}</h2>
+                <p>${item.color}</p>
+                <p>${item.price}</p>
+              </div>
+              <div class="cart__item__content__settings">
+                <div class="cart__item__content__settings__quantity">
+                  <p>Qté : </p>
+                  ${item.quantityOption}
+                </div>
+              </div>
             </div>
-            <div class="total">
-                ${item.incart * item.price}
-            </div>
+          </article>
             `
         });
 
         cartItems.innerHTML += `
-            <div class="container">
-                <h4 class="totalContainer">
-                    Total
-                </h4>
-                <h4 class="finalContainer">
-                    ${totalCost}
-                </h4>
-            </div>
-        `
+            <div class="basketTotalContainer">
+                <h4 class="basketTotalTitle">Total</h4>
+                <h4 class="basketTotal">$${totalCost}</h4>
+            </div>`
+
         deleteButton();
     }
 }
