@@ -70,21 +70,22 @@ function addToCart(element) {
     const colorChoice = color.value;
     const quantityChoice = quantity.value;
 
-    let retrieveOptions = {
-        productId: idProduct,
-        image: element.imageUrl,
-        altProduct: element.altTxt,
-        name: element.name,
-        price: element.price,
-        description: element.description,
-        colorOption: colorChoice,
-        quantityOption: quantityChoice,
-        incart: 0,
-    };
+    
 
 
     for (let i = 0; i < basket.length; i++) {
         basket[i].addEventListener("click", () => { 
+            let retrieveOptions = {
+                productId: idProduct,
+                image: element.imageUrl,
+                altProduct: element.altTxt,
+                name: element.name,
+                price: element.price,
+                description: element.description,
+                colorOption: colorChoice,
+                quantityOption: quantityChoice,
+                incart: 0,
+            };
             basketNumbers(retrieveOptions);
             totalPrice(retrieveOptions);
         });
