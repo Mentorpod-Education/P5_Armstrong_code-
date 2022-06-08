@@ -68,8 +68,8 @@ function getPost(element) {
 // adding products to the cart
 function addToCart(element) {
     const basket = document.querySelectorAll("#addToCart");
-    const colorChoice = color.value;
-    const quantityChoice = quantity.value;
+    let colorChoice = color.value;
+    let quantityChoice = quantity.value;
 
     
 
@@ -106,7 +106,6 @@ function addCartNumbers() {
 
 addCartNumbers();
 
-//move cart functionality to cart page and fix the display cart
 
 
 

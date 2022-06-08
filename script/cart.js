@@ -88,12 +88,12 @@ function displayCart() {
             <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
             <ion-icon name="close-circle"></ion-icon>
             <div class="cart__item__img">
-            <img src="./images/${item.image}.jpg"/>
+            <img src="${item.image}"/>
             </div>
             <div class="cart__item__content">
               <div class="cart__item__content__description">
                 <h2>${item.name}</h2>
-                <p>${item.color}</p>
+                <p>${item.colorOption}</p>
                 <p>${item.price}</p>
               </div>
               <div class="cart__item__content__settings">
@@ -141,5 +141,5 @@ function deleteButton() {
     }
 }
 
-displayCart();
+console.log(displayCart());
 export { basketNumbers, totalPrice };
