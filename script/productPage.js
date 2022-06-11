@@ -68,14 +68,16 @@ function getPost(element) {
 // adding products to the cart
 function addToCart(element) {
     const basket = document.querySelectorAll("#addToCart");
-    let colorChoice = color.value;
-    let quantityChoice = quantity.value;
 
     
 
 
     for (let i = 0; i < basket.length; i++) {
         basket[i].addEventListener("click", () => { 
+            let colorChoice = color.value;
+            let quantityChoice = quantity.value;
+            console.log(colorChoice);
+
             let retrieveOptions = {
                 productId: idProduct,
                 image: element.imageUrl,
@@ -91,7 +93,6 @@ function addToCart(element) {
             totalPrice(retrieveOptions);
         });
     }
-
 }
 
 function addCartNumbers() {
@@ -105,6 +106,7 @@ function addCartNumbers() {
 
 
 addCartNumbers();
+
 
 
 

@@ -26,9 +26,9 @@ function setItems(retrieveOption) {
     items = JSON.parse(items);
 
     if (items != null) {
-        items.incart += 1
+        items += 1
     } else {
-        retrieveOption.incart = 1;
+        retrieveOption = 1;
         items = {
             [retrieveOption.name]: retrieveOption
         }
@@ -43,10 +43,10 @@ function setItems(retrieveOption) {
                 [currentItem]: retrieveOption
             }
         } 
-        items[currentItem].incart += 1;
+        items[currentItem] += 1;
 
     } else {
-        retrieveOption.incart = 1;
+        retrieveOption = 1;
         items = { 
             [retrieveOption.name]: retrieveOption
         };
@@ -141,5 +141,5 @@ function deleteButton() {
     }
 }
 
-console.log(displayCart());
+displayCart();
 export { basketNumbers, totalPrice };
