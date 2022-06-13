@@ -1,3 +1,4 @@
+import { addCartNumbers } from './productPage.js';
 
 function basketNumbers(retrieveOption, action) {
     let numbers = localStorage.getItem('basketNumbers');
@@ -26,17 +27,8 @@ function setItems(retrieveOption) {
     items = JSON.parse(items);
 
     if (items != null) {
-        items += 1
-    } else {
-        retrieveOption = 1;
-        items = {
-            [retrieveOption.name]: retrieveOption
-        }
-    }
+        let currentItem = retrieveOption;
 
-    if(items != null) {
-        let currentItem = retrieveOption.name;
-    
         if( items[currentItem] == undefined ) {
             items = {
                 ...items,
@@ -48,12 +40,11 @@ function setItems(retrieveOption) {
     } else {
         retrieveOption = 1;
         items = { 
-            [retrieveOption.name]: retrieveOption
+            [currentItem]: product
         };
     }
 
     localStorage.setItem("cartOptions", JSON.stringify(items));
-
 }
 
 
@@ -140,6 +131,6 @@ function deleteButton() {
         })
     }
 }
-
+addCartNumbers();
 displayCart();
 export { basketNumbers, totalPrice };

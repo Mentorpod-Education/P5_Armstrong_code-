@@ -87,8 +87,8 @@ function addToCart(element) {
                 description: element.description,
                 colorOption: colorChoice,
                 quantityOption: quantityChoice,
-                incart: 0,
             };
+
             basketNumbers(retrieveOptions);
             totalPrice(retrieveOptions);
         });
@@ -106,6 +106,7 @@ function addCartNumbers() {
 
 
 addCartNumbers();
+export { addCartNumbers };
 
 
 
